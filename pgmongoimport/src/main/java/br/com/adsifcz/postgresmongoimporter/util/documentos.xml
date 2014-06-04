@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mongoConfig>
+    
+    <documento nome="pessoa" type="collection">
+        
+        <entity query="select * from pessoa where pessoa_type='ASSISTENTE'"/>
+            
+        <coluna nome="id"          tipo="Long"   campo="id" pk="true" />
+        <coluna nome="nome"        tipo="String" campo="nome"/>
+        <coluna nome="cpf"         tipo="String" campo="cpf"/>
+        <coluna nome="identidade"  tipo="String" campo="identidade"/>
+        <coluna nome="matricula"   tipo="String" campo="matricula"/>
+        <coluna nome="pessoa_type" tipo="String" campo="pessoa_type"/>
+            
+        <embedded nome="contato">
+            <coluna nome="telefone" tipo="String" campo="telefone"/>
+            <coluna nome="tipo"     tipo="String" campo="tipo"/>
+            <coluna nome="email"    tipo="String" campo="email"/>
+        </embedded>
+            
+        <embedded nome="usuario">
+            <coluna nome="login" tipo="String" campo="login"/>
+            <coluna nome="senha" tipo="String" campo="senha"/>
+        </embedded>
+            
+    </documento>
+    
+    <documento nome="pessoa" type="collection">
+        
+        <entity query="select * from pessoa p join aluno a on (p.id=a.id) order by p.id ASC"/>
+            
+        <coluna nome="id"            tipo="Long"    campo="id" pk="true" />
+        <coluna nome="nome"          tipo="String"  campo="nome"/>
+        <coluna nome="cpf"           tipo="String"  campo="cpf"/>
+        <coluna nome="identidade"    tipo="String"  campo="identidade"/>
+        <coluna nome="matricula"     tipo="String"  campo="matricula"/>
+        
+        <coluna nome="nomePai"       tipo="String"  campo="nomePai"/>
+        <coluna nome="nomeMae"       tipo="String"  campo="nomeMae"/>
+        <coluna nome="profissaoMae"  tipo="String"  campo="profissaoMae"/>
+        <coluna nome="profissaoPai"  tipo="String"  campo="profissaoPai"/>
+        <coluna nome="rendaFamiliar" tipo="Double"  campo="rendaFamiliar"/>
+        <coluna nome="numeroPessoas" tipo="Integer" campo="numeroPessoas"/>
+        <coluna nome="curso"         tipo="String"  campo="curso"/>
+        <coluna nome="periodo"       tipo="String"  campo="periodo"/>
+        <coluna nome="dataInscricao" tipo="Date"  campo="dataInscricao"/>
+        <coluna nome="pessoa_type"   tipo="String"  campo="pessoa_type"/>
+            
+        <embedded nome="contato">
+            <coluna nome="telefone" tipo="String" campo="telefone"/>
+            <coluna nome="tipo"     tipo="String" campo="tipo"/>
+            <coluna nome="email"    tipo="String" campo="email"/>
+        </embedded>
+            
+        <embedded nome="usuario">
+            <coluna nome="login" tipo="String" campo="login"/>
+            <coluna nome="senha" tipo="String" campo="senha"/>
+        </embedded>
+          
+        <embedded nome="endereco">
+            <coluna nome="uF"      tipo="String" campo="uF"/>
+            <coluna nome="cidade"  tipo="String" campo="cidade"/>
+            <coluna nome="bairro"  tipo="String" campo="bairro"/>
+            <coluna nome="rua"     tipo="String" campo="rua"/>
+            <coluna nome="numero"  tipo="String" campo="numero"/>
+            <coluna nome="cep"     tipo="String" campo="cep"/>
+        </embedded>
+        
+        <embedded nome="turnos" query="select id as turno_id from turno where id_aluno=?0">
+            <queryParam nome="id"/>
+            <coluna nome="turno_id"  tipo="Long" campo="id"/>
+        </embedded>
+        
+    </documento>
+    
+    <documento nome="pessoa" type="collection">
+        
+        <entity query="select * from pessoa p join visitante v on (p.id=v.id) order by p.id ASC"/>
+            
+        <coluna nome="id"            tipo="Long"    campo="id" pk="true" />
+        <coluna nome="matricula"     tipo="String"  campo="matricula"/>
+        <coluna nome="nome"          tipo="String"  campo="nome"/>
+        <coluna nome="identidade"    tipo="String"  campo="identidade"/>
+        <coluna nome="cpf"           tipo="String"  campo="cpf"/>
+        <coluna nome="cidade"        tipo="String"  campo="cidade"/>
+        <coluna nome="uf"            tipo="String"  campo="uf"/>
+        <coluna nome="uf"            tipo="String"  campo="uf"/>
+        <coluna nome="curso"         tipo="String"  campo="curso"/>
+        <coluna nome="campus"        tipo="String"  campo="campus"/>
+        <coluna nome="dataCadastro"  tipo="Date"  campo="dataCadastro"/>
+        <coluna nome="dataValidade"  tipo="Date"  campo="dataValidade"/>
+        <coluna nome="pessoa_type"   tipo="String"  campo="pessoa_type"/>
+            
+        <embedded nome="contato">
+            <coluna nome="telefone" tipo="String" campo="telefone"/>
+            <coluna nome="tipo"     tipo="String" campo="tipo"/>
+            <coluna nome="email"    tipo="String" campo="email"/>
+        </embedded>
+            
+        <embedded nome="usuario">
+            <coluna nome="login" tipo="String" campo="login"/>
+            <coluna nome="senha" tipo="String" campo="senha"/>
+        </embedded>
+        
+        <embedded nome="turnos" query="select id from turno where id_aluno=?0">
+            <queryParam nome="id"/>
+            <coluna nome="turno_id"  tipo="Long" campo="id"/>
+        </embedded>
+        
+    </documento>
+    
+    <documento nome="refeicao" type="collection">
+        
+        <entity query="select * from refeicao"/>
+        <coluna nome="id"           tipo="Long"   campo="id" pk="true" />
+        <coluna nome="status"       tipo="String" campo="status"/>
+        <coluna nome="dataRefeicao" tipo="Date"   campo="dataRefeicao" />
+        
+         
+        <embedded nome="turnos" query="select tr.turno_id as turnos_id from refeicao r join turno_refeicao tr on r.id=?0" type="array">
+            <queryParam nome="id"/>
+            <coluna nome="turnos_id"  tipo="Long" campo="id"/>
+        </embedded>
+        
+    </documento>
+    
+    <documento nome="turno" type="collection">
+        
+        <entity query="select * from turno"/>
+        <coluna nome="id"              tipo="Long"     campo="id" pk="true" />
+        <coluna nome="diaSemana"       tipo="String"   campo="status"/>
+        <coluna nome="tipoRefeicao"    tipo="String"   campo="dataRefeicao" />
+        <coluna nome="motivo"          tipo="String"   campo="dataRefeicao" />
+        
+    </documento>
+    
+   
+    
+</mongoConfig>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequencias nomeDaColecao="hibernate_sequences">
+    
+    <sequencia id="pessoa" query="select last_value as sequence_value from pessoa_seq">
+        <campo coluna="sequence_value" nome="sequence_value" tipo="Long"/>
+    </sequencia>
+    
+    <sequencia id="refeicao" query="select last_value as sequence_value from refeicao_seq">
+        <campo coluna="sequence_value" tipo="Long"/>
+    </sequencia>
+    
+    <sequencia id="turno" query="select last_value as sequence_value from turno_seq">
+        <campo coluna="sequence_value" nome="sequence_value" tipo="Long"/>
+    </sequencia>
+    
+</sequencias>
